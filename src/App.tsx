@@ -8,9 +8,10 @@ import Dashboard from 'components/layout/Dashboard'
 import Login from 'components/auth/Login'
 import { loadUser } from 'data/actions/auth'
 import { setToken } from 'utils/setToken'
-import Priprema from 'components/pripreme/Priprema'
+import PripremaForm from 'components/pripreme/PripremaForm'
 import PripremeComponent from 'components/pripreme/PripremeComponent'
 import PripremaView from 'components/pripreme/PripremaView'
+import PrivateRoute from './components/auth/PrivateRoute'
 
 if (localStorage.getItem('token')) {
   setToken(localStorage.getItem('token'))
@@ -29,10 +30,10 @@ const App = () => {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/priprema" component={Priprema} />
-          <Route exact path="/pripreme" component={PripremeComponent} />
-          <Route exact path="/priprema/:id" component={PripremaView} />
-          <Route exact path="/" component={Dashboard} />
+          <PrivateRoute component={PripremaForm} path="/priprema" exact />
+          <PrivateRoute component={PripremeComponent} path="/pripreme" exact />
+          <PrivateRoute component={PripremaView} path="/priprema/:id" exact />
+          <Route path="/" component={Dashboard} />
         </Switch>
       </Router>
     </Provider>

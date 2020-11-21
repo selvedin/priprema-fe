@@ -9,7 +9,7 @@ interface PripremaProps {
   savePriprema: any
 }
 
-const Priprema: React.FC<PripremaProps> = ({ savePriprema }) => {
+const PripremaForm: React.FC<PripremaProps> = ({ savePriprema }) => {
 
   const [priprema, setPriprema] = useState(defaultPriprema)
 
@@ -129,4 +129,4 @@ const mapStateToProps = (state: any) => ({
   priprema: state.priprema
 })
 
-export default connect(mapStateToProps, { savePriprema })(Priprema)
+export default connect(mapStateToProps, { savePriprema })(PripremaForm)
