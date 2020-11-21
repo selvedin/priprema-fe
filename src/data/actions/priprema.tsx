@@ -33,7 +33,7 @@ export const savePriprema = (skolskaGodina: string,
   glavniSadrzaj: string,
   zavrsniTrajanje: string,
   zavrsniSadrzaj: string,
-  domaciRad: string) => async (dispatch: any) => {
+  domaciRad: string, _id: string) => async (dispatch: any) => {
     console.log()
     try {
       const config = {
@@ -69,7 +69,8 @@ export const savePriprema = (skolskaGodina: string,
         glavniSadrzaj,
         zavrsniTrajanje,
         zavrsniSadrzaj,
-        domaciRad
+        domaciRad,
+        _id
       })
 
       console.log({ body })

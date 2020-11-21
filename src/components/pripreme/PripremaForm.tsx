@@ -1,17 +1,41 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { savePriprema } from 'data/actions/priprema'
 import swal from 'sweetalert'
+import axios from 'axios'
 import { defaultPriprema } from './defaultPriprema'
 import { Redirect } from 'react-router-dom'
 
 interface PripremaProps {
-  savePriprema: any
+  userDetails: string,
+  savePriprema: any,
+  match: any
 }
 
-const PripremaForm: React.FC<PripremaProps> = ({ savePriprema }) => {
-
+const PripremaForm: React.FC<PripremaProps> = (props) => {
   const [priprema, setPriprema] = useState(defaultPriprema)
+  const { userDetails, savePriprema, match } = props
+  const { id } = match.params
+
+  useEffect(() => {
+    const getPriprema = async (id: string) => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_BASE_PATH}/priprema/view`, { params: { id } })
+        setPriprema(response.data)
+      } catch (error) {
+        swal(error.response.data, 'Greska', 'error')
+      }
+    }
+
+    if (id) {
+      getPriprema(id)
+    }
+  }, [])
+
+
+
+  defaultPriprema.nastavnik = userDetails
+
 
   let { skolskaGodina,
     nastavnik,
@@ -40,7 +64,7 @@ const PripremaForm: React.FC<PripremaProps> = ({ savePriprema }) => {
     glavniSadrzaj,
     zavrsniTrajanje,
     zavrsniSadrzaj,
-    domaciRad } = priprema
+    domaciRad, _id } = priprema
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPriprema({ ...priprema, [e.currentTarget.name]: e.currentTarget.value })
@@ -79,7 +103,8 @@ const PripremaForm: React.FC<PripremaProps> = ({ savePriprema }) => {
         glavniSadrzaj,
         zavrsniTrajanje,
         zavrsniSadrzaj,
-        domaciRad)
+        domaciRad,
+        _id)
 
       return <Redirect to='/' />
     }
@@ -90,6 +115,7 @@ const PripremaForm: React.FC<PripremaProps> = ({ savePriprema }) => {
       <hr />
 
       <div className="row justify-content-md-center">
+        <input type="hidden" name="_id" value={_id} onChange={e => onChange(e)} className='form-control' />
         <div className="col">
           <label htmlFor="firstname" className='form-label'>Školska godina:</label>
           <input type="text" name="skolskaGodina" value={skolskaGodina} onChange={e => onChange(e)} className='form-control' />
@@ -125,8 +151,10 @@ const PripremaForm: React.FC<PripremaProps> = ({ savePriprema }) => {
     </div>
   )
 }
-const mapStateToProps = (state: any) => ({
-  priprema: state.priprema
+const mapStateToProps = (state: any, props: any) => ({
+  userDetails: state.userDetails,
+  priprema: state.priprema,
+  props
 })
 
 export default connect(mapStateToProps, { savePriprema })(PripremaForm)

@@ -1,17 +1,30 @@
 import React from 'react'
-import { Route, Redirect } from "react-router-dom"
+import { Route, Redirect, RouteProps } from "react-router-dom"
 import { connect } from 'react-redux'
 
-const PrivateRoute: React.FC<{
-  component: React.FC;
-  path: string;
-  exact: boolean;
+interface PrivateRouteProps extends RouteProps {
+  // tslint:disable-next-line:no-any
+  component: any;
+  path: string,
+  exact: boolean,
   isAuthenticated: boolean;
-}> = (props) => {
+}
 
+const PrivateRoute = (props: PrivateRouteProps) => {
+  const { component: Component, isAuthenticated, ...rest } = props;
 
-  return props.isAuthenticated ? (<Route path={props.path} exact={props.exact} component={props.component} />) :
-    (<Redirect to="/login" />)
+  return (
+    <Route
+      {...rest}
+      render={(routeProps) =>
+        isAuthenticated ? (
+          <Component {...routeProps} />
+        ) : (
+            <Redirect to="/login" />
+          )
+      }
+    />
+  )
 }
 
 const mapStateToProps = (state: any) => ({

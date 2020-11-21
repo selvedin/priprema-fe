@@ -13,6 +13,7 @@ const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: false,
   username: '',
+  userDetails: '',
   errors: {}
 }
 
@@ -23,10 +24,12 @@ const authReducer = (state = initialState, action: any) => {
     case LOGIN_SUCCESS:
       localStorage.setItem('token', payload.token)
       localStorage.setItem('username', payload.username)
+      localStorage.setItem('userDetails', payload.firstname + ' ' + payload.lastname)
       return {
         ...state,
         isAuthenticated: true,
-        username: payload.username
+        username: payload.username,
+        userDetails: payload.firstname + ' ' + payload.lastname
       }
     case REGISTER_FAILED:
     case LOGIN_FAILED:
@@ -35,14 +38,16 @@ const authReducer = (state = initialState, action: any) => {
       return {
         ...state,
         isAuthenticated: false,
-        username: ''
+        username: '',
+        userDetails: ''
       }
     case LOADING_USER:
       localStorage.getItem('token')
       return {
         ...state,
         isAuthenticated: true,
-        username: payload.username
+        username: payload.username,
+        userDetails: payload.firstname + ' ' + payload.lastname
       }
     case LOGED_OUT:
       localStorage.removeItem('token')
@@ -50,7 +55,8 @@ const authReducer = (state = initialState, action: any) => {
       return {
         ...state,
         isAuthenticated: false,
-        username: ''
+        username: '',
+        userDetails: ''
       }
     default:
       return state

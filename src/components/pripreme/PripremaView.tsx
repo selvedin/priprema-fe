@@ -4,7 +4,7 @@ import swal from 'sweetalert'
 import { defaultPriprema } from './defaultPriprema'
 import { IPriprema } from 'types/Priprema'
 import { Link } from 'react-router-dom'
-import { FaPlusCircle, FaList, FaFilePdf } from 'react-icons/fa'
+import { FaPlusCircle, FaList, FaFilePdf, FaEdit } from 'react-icons/fa'
 import PdfDocument from 'components/common/PdfDocument'
 import { PDFDownloadLink } from '@react-pdf/renderer'
 
@@ -32,13 +32,16 @@ const PripremaView = (props: any) => {
         <div className="col">
           <h2 className='float-left'>Pripreme</h2>
           <PDFDownloadLink className='text-danger float-right' document={<PdfDocument priprema={priprema} />} fileName={`priprema-${priprema.predmet}-${priprema.razred}-${priprema.nastavnaJedinica}`}>
-            {({ blob, url, loading, error }) => (loading ? 'Loading document...' : <FaFilePdf size={22} />)}
+            {({ blob, url, loading, error }) => (loading ? '' : <FaFilePdf size={22} />)}
           </PDFDownloadLink>
           <Link className='text-primary btn-sm float-right mx-1' to='/priprema' title='Nova priprema'>
             <FaPlusCircle size={22} />
           </Link>
           <Link className='text-secondary btn-sm float-right mx-1' to='/pripreme' title='Sve pripreme'>
             <FaList size={22} />
+          </Link>
+          <Link className='text-success btn-sm float-right mx-1' to={'/priprema-edit/' + id} title='Uredi pripremu'>
+            <FaEdit size={22} />
           </Link>
           <div className='clearfix' />
         </div>
@@ -49,7 +52,7 @@ const PripremaView = (props: any) => {
             key !== '_id' && key !== '__v' && value !== '' ? <div key={key} className='row g-2'>
               <div className='col'>
                 <div className="form-floating">
-                  <input type="email" className="form-control" value={value} />
+                  <input type="email" className="form-control" readOnly={true} value={value} />
                   <label>{key}</label>
                 </div>
               </div>

@@ -33,6 +33,7 @@ const App = () => {
           <PrivateRoute component={PripremaForm} path="/priprema" exact />
           <PrivateRoute component={PripremeComponent} path="/pripreme" exact />
           <PrivateRoute component={PripremaView} path="/priprema/:id" exact />
+          <PrivateRoute component={PripremaForm} path="/priprema-edit/:id" exact />
           <Route path="/" component={Dashboard} />
         </Switch>
       </Router>
