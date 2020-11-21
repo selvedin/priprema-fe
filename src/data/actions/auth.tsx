@@ -17,7 +17,7 @@ export const loadUser = () => async (dispatch: any) => {
   if (localToken) {
     setToken(localToken)
     try {
-      const response = await axios.get('http://localhost:3210/api/users')
+      const response = await axios.get(`${process.env.REACT_APP_BASE_PATH}/users`)
       dispatch({ type: LOADING_USER, payload: response.data })
     } catch (error) {
       dispatch({ type: AUTH_ERROR, payload: error })
@@ -39,7 +39,7 @@ export const registerUser = (firstname: string,
       }
       const body = JSON.stringify({ firstname, lastname, email, phone, username, password })
 
-      const response = await axios.post('http://localhost:3210/api/users/register', body, config)
+      const response = await axios.post(`${process.env.REACT_APP_BASE_PATH}/users/register`, body, config)
 
       dispatch({ type: REGISTER_SUCCESS, payload: response.data })
       dispatch(loadUser())
@@ -65,7 +65,7 @@ export const loginUser = (username: string, password: string) => async (dispatch
     }
     const body = JSON.stringify({ username, password })
 
-    const response = await axios.post('http://localhost:3210/api/users/login', body, config)
+    const response = await axios.post(`${process.env.REACT_APP_BASE_PATH}/users/login`, body, config)
     dispatch({ type: LOGIN_SUCCESS, payload: response.data })
     dispatch(loadUser())
   } catch (error) {

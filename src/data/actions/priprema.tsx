@@ -1,12 +1,10 @@
 import {
   PRIPREMA_SAVE,
-  PRIPREMA_SAVE_SUCCESS,
   PRIPREMA_SAVE_FAILED
 } from 'consts/priprema'
 
 import axios from 'axios'
 import swal from 'sweetalert'
-import { IPriprema } from 'types/Priprema'
 
 export const savePriprema = (skolskaGodina: string,
   nastavnik: string,
@@ -76,7 +74,7 @@ export const savePriprema = (skolskaGodina: string,
 
       console.log({ body })
 
-      const response = await axios.post('http://localhost:3210/api/priprema/save', body, config)
+      const response = await axios.post(`${process.env.REACT_APP_BASE_PATH}/priprema/save`, body, config)
 
       dispatch({ type: PRIPREMA_SAVE, payload: response.data })
 

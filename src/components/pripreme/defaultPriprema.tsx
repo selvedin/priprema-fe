@@ -28,5 +28,6 @@ export let defaultPriprema: IPriprema = {
   glavniSadrzaj: '',
   zavrsniTrajanje: '',
   zavrsniSadrzaj: '',
-  domaciRad: ''
+  domaciRad: '',
+  _id: ''
 }

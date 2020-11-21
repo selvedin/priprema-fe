@@ -13,7 +13,7 @@ const Dashboard = () => {
         </div>
         <div className="col text-center">
           <div className="p-3">
-            <Link className='btn btn-default btn-lg' to='/'><FaListAlt size={32} /> <br />Sve pripreme</Link>
+            <Link className='btn btn-default btn-lg' to='/pripreme'><FaListAlt size={32} /> <br />Sve pripreme</Link>
           </div>
         </div>
         <div className="col text-center">
