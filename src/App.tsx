@@ -1,3 +1,4 @@
+import './App.css'
 import React, { useEffect } from 'react'
 import { Provider } from 'react-redux'
 import store from './data/store'
@@ -28,13 +29,13 @@ const App = () => {
       <Router>
         <Header />
         <Switch>
-          <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <PrivateRoute component={PripremaForm} path="/priprema" exact />
           <PrivateRoute component={PripremeComponent} path="/pripreme" exact />
           <PrivateRoute component={PripremaView} path="/priprema/:id" exact />
           <PrivateRoute component={PripremaForm} path="/priprema-edit/:id" exact />
-          <Route path="/" component={Dashboard} />
+          <PrivateRoute exact path="/" component={Dashboard} />
+          <Route path="/login" component={Login} />
         </Switch>
       </Router>
     </Provider>
