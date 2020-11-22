@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PripremaTable from './PripremaTable'
 import { Link } from 'react-router-dom'
 import { FaPlusCircle } from 'react-icons/fa'
@@ -7,7 +7,7 @@ import { FaPlusCircle } from 'react-icons/fa'
 function PripremeComponent() {
 
   return (
-    <Fragment>
+    <div className='container'>
 
       <div className="row justify-content-md-center p-3 border-bottom">
         <div className="col">
@@ -23,7 +23,7 @@ function PripremeComponent() {
           <PripremaTable />
         </div>
       </div>
-    </Fragment>
+    </div>
   )
 }
 

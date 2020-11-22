@@ -27,7 +27,7 @@ const PripremaView = (props: any) => {
   }, [])
 
   return (
-    <div>
+    <div className='container'>
       <div className="row justify-content-md-center p-3 border-bottom">
         <div className="col">
           <h2 className='float-left'>Pripreme</h2>
@@ -51,10 +51,8 @@ const PripremaView = (props: any) => {
           return (
             key !== '_id' && key !== '__v' && value !== '' ? <div key={key} className='row g-2'>
               <div className='col'>
-                <div className="form-floating">
-                  <input type="email" className="form-control" readOnly={true} value={value} />
-                  <label>{key}</label>
-                </div>
+                <label className='form-label fw-bold'>{key} :</label><br />
+                <div className="form-control" dangerouslySetInnerHTML={{ __html: value }}></div>
               </div>
             </div> : null
           )

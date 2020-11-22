@@ -5,6 +5,9 @@ import swal from 'sweetalert'
 import axios from 'axios'
 import { defaultPriprema } from './defaultPriprema'
 import { Redirect } from 'react-router-dom'
+import DatePicker from 'react-datepicker'
+import { Editor } from '@tinymce/tinymce-react'
+import pripremaReducer from 'data/reducers/pripremaReducer'
 
 interface PripremaProps {
   userDetails: string,
@@ -70,6 +73,19 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
     setPriprema({ ...priprema, [e.currentTarget.name]: e.currentTarget.value })
   }
 
+  const handleDateChange = (date: string | undefined) => {
+    let selectedDate = new Date()
+    if (date !== undefined) {
+      selectedDate = new Date(Date.parse(date))
+    }
+    setPriprema({ ...priprema, datum: `${selectedDate.getDate()}.${selectedDate.getMonth() + 1}.${selectedDate.getFullYear()}` })
+
+  }
+
+  const handleEditorChange = (tekst: string) => {
+    setPriprema({ ...priprema, uvodniSadrzaj: tekst })
+  }
+
   const submitForm = () => {
     if (skolskaGodina === '' || nastavnik === '' || razred === '' || predmet === '') {
       return swal('Školska godina, nastavnik, razred i predmet su obavezna polja.', 'Validacija', 'error')
@@ -114,34 +130,65 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
       <h1>Priprema</h1>
       <hr />
 
-      <div className="row justify-content-md-center">
-        <input type="hidden" name="_id" value={_id} onChange={e => onChange(e)} className='form-control' />
-        <div className="col">
-          <label htmlFor="firstname" className='form-label'>Školska godina:</label>
+      <input type="hidden" name="_id" value={_id} onChange={e => onChange(e)} className='form-control' />
+      <input type="hidden" name="nastavnik" value={nastavnik} onChange={e => onChange(e)} className='form-control' />
+
+      <div className="row justify-content-md-center mt-2">
+        <div className="col-md-4">
+          <label htmlFor="predmet" className='form-label fw-bold'>Nastavni predmet:</label>
+          <input type="text" name="predmet" value={predmet} onChange={e => onChange(e)} className='form-control' />
+        </div>
+
+        <div className="col-md-4">
+          <label htmlFor="razred" className='form-label fw-bold'>Razred i odjeljenje:</label>
+          <input type="text" name="razred" value={razred} onChange={e => onChange(e)} className='form-control' />
+        </div>
+
+        <div className="col-md-4">
+          <label htmlFor="firstname" className='form-label fw-bold'>Školska godina:</label>
           <input type="text" name="skolskaGodina" value={skolskaGodina} onChange={e => onChange(e)} className='form-control' />
         </div>
       </div>
 
-      <div className="row justify-content-md-center">
-        <div className="col">
-          <label htmlFor="nastavnik" className='form-label'>Nastavnik:</label>
-          <input type="text" name="nastavnik" value={nastavnik} onChange={e => onChange(e)} className='form-control' />
+      <div className="row justify-content-md-center mt-2">
+        <div className="col-md-4">
+          <label htmlFor="datum" className='form-label fw-bold'>Datum:</label><br />
+          <DatePicker dateFormat='dd.MM.yyyy.' value={datum} onChange={date => handleDateChange(date?.toLocaleString())} className='form-control' />
         </div>
+
+        <div className="col-md-8">
+          <label htmlFor="nastavnaJedinica" className='form-label fw-bold'>Nastavna jedinka:</label>
+          <input type="text" name="nastavnaJedinica" value={nastavnaJedinica} onChange={e => onChange(e)} className='form-control' />
+        </div>
+      </div>
+      <div className="row justify-content-md-center mt-2">
+        <div className="col-md-12">
+          <label htmlFor="nastavnaJedinica" className='form-label fw-bold'>Uvodni dio:</label>
+          <Editor
+            apiKey='wmdmbf9x0awj6m30d51rucxght27s1j3tn9dkxweue8dqxh4'
+            initialValue={uvodniSadrzaj}
+            value={uvodniSadrzaj}
+            init={{
+              height: 400,
+              menubar: false,
+              plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+              ],
+              toolbar:
+                'undo redo | formatselect | bold italic backcolor |  alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+            }}
+            onEditorChange={tekst => handleEditorChange(tekst)}
+          />
+        </div>
+
       </div>
 
-      <div className="row justify-content-md-center">
-        <div className="col">
-          <label htmlFor="razred" className='form-label'>Razred:</label>
-          <input type="text" name="razred" value={razred} onChange={e => onChange(e)} className='form-control' />
-        </div>
-      </div>
 
-      <div className="row justify-content-md-center">
-        <div className="col">
-          <label htmlFor="predmet" className='form-label'>Predmet:</label>
-          <input type="text" name="predmet" value={predmet} onChange={e => onChange(e)} className='form-control' />
-        </div>
-      </div>
+
+
+
 
       <div className="row justify-content-md-center mt-4">
         <div className="col">

@@ -3,7 +3,7 @@ export interface IPriprema {
   nastavnik: string,
   razred: string,
   predmet: string,
-  datum: string,
+  datum: string | undefined,
   nastavnaOblast: string,
   nastavnaJedinica: string,
   ciljeviOdgojni: string,
