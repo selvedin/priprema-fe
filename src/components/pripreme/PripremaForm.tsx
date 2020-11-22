@@ -8,6 +8,8 @@ import { Redirect } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import { Editor } from '@tinymce/tinymce-react'
 import { ToastContainer, toast } from 'react-toastify'
+import Loader from 'react-loader-spinner'
+import Loading from 'components/common/Loading'
 
 
 interface PripremaProps {
@@ -17,11 +19,11 @@ interface PripremaProps {
 }
 
 const PripremaForm: React.FC<PripremaProps> = (props) => {
-  const notify = (msg: string) => toast.success(msg)
   const [savingForm, setSavingForm] = useState(false)
   const [priprema, setPriprema] = useState(defaultPriprema)
   const { userDetails, savePriprema, match } = props
   const { id } = match.params
+  const notify = (msg: string) => toast.success(msg)
 
   useEffect(() => {
     const getPriprema = async (id: string) => {
@@ -238,7 +240,9 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
 
       <div className="row justify-content-md-center mt-4">
         <div className="col">
-          <button className='btn btn-primary float-right' disabled={savingForm} onClick={() => submitForm()}>Snimi</button>
+          {savingForm ? <Loading /> :
+            <button className='btn btn-primary float-right' onClick={() => submitForm()}>Snimi</button>
+          }
         </div>
       </div>
       <ToastContainer />

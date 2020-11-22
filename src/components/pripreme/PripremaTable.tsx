@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { IPriprema } from 'types/Priprema'
-import { FaTrash, FaEye } from 'react-icons/fa'
+import { FaTrash, FaEye, FaEdit } from 'react-icons/fa'
 import axios from 'axios'
 import swal from 'sweetalert'
 import { Link } from 'react-router-dom'
@@ -62,6 +62,9 @@ const PripremaTable = () => {
                 <td className='text-right'>
                   <Link className="btn btn-secondary btn-sm mx-1" to={'/priprema/' + pr._id}>
                     <FaEye />
+                  </Link>
+                  <Link className="btn btn-primary btn-sm mx-1" to={'/priprema-edit/' + pr._id}>
+                    <FaEdit />
                   </Link>
                   <button className="btn btn-danger btn-sm mx-1" onClick={() => deletePriprema(pr._id)}>
                     <FaTrash />

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import swal from 'sweetalert'
-import Loader from 'react-loader-spinner'
+import Loading from 'components/common/Loading'
 
 const Login = ({ isAuthenticated, loginUser }: { isAuthenticated: boolean, loginUser: any }) => {
 
@@ -52,13 +52,7 @@ const Login = ({ isAuthenticated, loginUser }: { isAuthenticated: boolean, login
       </div>
       <div className="row justify-content-md-center mt-4">
         <div className="col col-lg-6 text-right">
-          {!loading ? <button className='btn btn-primary' onClick={() => submitForm()}>Prijava</button> : <Loader
-            type="ThreeDots"
-            color="#00BFFF"
-            height={50}
-            width={70}
-
-          />}
+          {!loading ? <button className='btn btn-primary' disabled={username === '' || password === ''} onClick={() => submitForm()}>Prijava</button> : <Loading />}
 
         </div>
       </div>
