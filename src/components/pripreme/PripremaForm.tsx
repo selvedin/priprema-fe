@@ -7,7 +7,8 @@ import { defaultPriprema } from './defaultPriprema'
 import { Redirect } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import { Editor } from '@tinymce/tinymce-react'
-import pripremaReducer from 'data/reducers/pripremaReducer'
+import { ToastContainer, toast } from 'react-toastify'
+
 
 interface PripremaProps {
   userDetails: string,
@@ -16,6 +17,8 @@ interface PripremaProps {
 }
 
 const PripremaForm: React.FC<PripremaProps> = (props) => {
+  const notify = (msg: string) => toast.success(msg)
+  const [savingForm, setSavingForm] = useState(false)
   const [priprema, setPriprema] = useState(defaultPriprema)
   const { userDetails, savePriprema, match } = props
   const { id } = match.params
@@ -33,7 +36,7 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
     if (id) {
       getPriprema(id)
     }
-  }, [])
+  }, [id])
 
 
 
@@ -86,13 +89,13 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
     setPriprema({ ...priprema, uvodniSadrzaj: tekst })
   }
 
-  const submitForm = () => {
+  const submitForm = async () => {
     if (skolskaGodina === '' || nastavnik === '' || razred === '' || predmet === '') {
       return swal('Školska godina, nastavnik, razred i predmet su obavezna polja.', 'Validacija', 'error')
     }
     else {
-      console.log({ skolskaGodina, razred })
-      savePriprema(skolskaGodina,
+      setSavingForm(true)
+      await savePriprema(skolskaGodina,
         nastavnik,
         razred,
         predmet,
@@ -122,7 +125,8 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
         domaciRad,
         _id)
 
-      return <Redirect to='/' />
+      notify('Podaci su usljesno snimljeni')
+      setSavingForm(false)
     }
   }
   return (
@@ -161,6 +165,48 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
           <input type="text" name="nastavnaJedinica" value={nastavnaJedinica} onChange={e => onChange(e)} className='form-control' />
         </div>
       </div>
+
+      <div className="row justify-content-md-center mt-2">
+        <div className="col-md-12">
+          <label htmlFor="tipCasa" className='form-label fw-bold'>Tip časa:</label><br />
+          <input type="text" name="tipCasa" value={tipCasa} onChange={e => onChange(e)} className='form-control' />
+        </div>
+      </div>
+
+      <div className="row justify-content-md-center mt-2">
+        <div className="col-md-12">
+          <label htmlFor="ciljeviCasa" className='form-label fw-bold'><h3>Cilj časa:</h3></label><br />
+        </div>
+      </div>
+
+      <div className="row justify-content-md-center mt-2">
+        <div className="col-md-12">
+          <label htmlFor="ciljeviObrazovni" className='form-label fw-bold'>Obrazovni:</label><br />
+          <input type="text" name="ciljeviObrazovni" value={ciljeviObrazovni} onChange={e => onChange(e)} className='form-control' />
+        </div>
+      </div>
+
+      <div className="row justify-content-md-center mt-2">
+        <div className="col-md-12">
+          <label htmlFor="ciljeviOdgojni" className='form-label fw-bold'>Odgojni:</label><br />
+          <input type="text" name="ciljeviOdgojni" value={ciljeviOdgojni} onChange={e => onChange(e)} className='form-control' />
+        </div>
+      </div>
+
+      <div className="row justify-content-md-center mt-2">
+        <div className="col-md-12">
+          <label htmlFor="ciljeviFunkcionalni" className='form-label fw-bold'>Funkcionalni:</label><br />
+          <input type="text" name="ciljeviFunkcionalni" value={ciljeviFunkcionalni} onChange={e => onChange(e)} className='form-control' />
+        </div>
+      </div>
+
+      <div className="row justify-content-md-center mt-2">
+        <div className="col-md-12">
+          <label htmlFor="ciljeviDuhovni" className='form-label fw-bold'>Duhovni:</label><br />
+          <input type="text" name="ciljeviDuhovni" value={ciljeviDuhovni} onChange={e => onChange(e)} className='form-control' />
+        </div>
+      </div>
+
       <div className="row justify-content-md-center mt-2">
         <div className="col-md-12">
           <label htmlFor="nastavnaJedinica" className='form-label fw-bold'>Uvodni dio:</label>
@@ -169,7 +215,7 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
             initialValue={uvodniSadrzaj}
             value={uvodniSadrzaj}
             init={{
-              height: 400,
+              height: 250,
               menubar: false,
               plugins: [
                 'advlist autolink lists link image charmap print preview anchor',
@@ -192,9 +238,10 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
 
       <div className="row justify-content-md-center mt-4">
         <div className="col">
-          <button className='btn btn-primary float-right' onClick={() => submitForm()}>Snimi</button>
+          <button className='btn btn-primary float-right' disabled={savingForm} onClick={() => submitForm()}>Snimi</button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   )
 }

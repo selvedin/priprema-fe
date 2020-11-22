@@ -3,9 +3,11 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import swal from 'sweetalert'
+import Loader from 'react-loader-spinner'
 
 const Login = ({ isAuthenticated, loginUser }: { isAuthenticated: boolean, loginUser: any }) => {
 
+  const [loading, setLoading] = useState(false)
   const [data, setData] = useState({
     username: '',
     password: ''
@@ -21,12 +23,14 @@ const Login = ({ isAuthenticated, loginUser }: { isAuthenticated: boolean, login
     setData({ ...data, [e.currentTarget.name]: e.currentTarget.value })
   }
 
-  const submitForm = () => {
+  const submitForm = async () => {
     if (username === '' || password === '') {
       return swal('Empty username or password', 'Validation failed', 'error')
     }
     else {
-      loginUser(username, password)
+      setLoading(true)
+      await loginUser(username, password)
+      setLoading(false)
     }
   }
   return (
@@ -47,8 +51,15 @@ const Login = ({ isAuthenticated, loginUser }: { isAuthenticated: boolean, login
         </div>
       </div>
       <div className="row justify-content-md-center mt-4">
-        <div className="col col-lg-6">
-          <button className='btn btn-primary float-right' onClick={() => submitForm()}>Prijava</button>
+        <div className="col col-lg-6 text-right">
+          {!loading ? <button className='btn btn-primary' onClick={() => submitForm()}>Prijava</button> : <Loader
+            type="ThreeDots"
+            color="#00BFFF"
+            height={50}
+            width={70}
+
+          />}
+
         </div>
       </div>
     </div>
