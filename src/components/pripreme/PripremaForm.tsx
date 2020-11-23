@@ -4,12 +4,11 @@ import { savePriprema } from 'data/actions/priprema'
 import swal from 'sweetalert'
 import axios from 'axios'
 import { defaultPriprema } from './defaultPriprema'
-import { Redirect } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import { Editor } from '@tinymce/tinymce-react'
 import { ToastContainer, toast } from 'react-toastify'
-import Loader from 'react-loader-spinner'
 import Loading from 'components/common/Loading'
+import FormHeader from 'components/common/FormHeader'
 
 
 interface PripremaProps {
@@ -133,8 +132,7 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
   }
   return (
     <div className="container mt-4">
-      <h1>Priprema</h1>
-      <hr />
+      <FormHeader priprema={priprema} id={id} isView={false} />
 
       <input type="hidden" name="_id" value={_id} onChange={e => onChange(e)} className='form-control' />
       <input type="hidden" name="nastavnik" value={nastavnik} onChange={e => onChange(e)} className='form-control' />
@@ -232,11 +230,6 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
         </div>
 
       </div>
-
-
-
-
-
 
       <div className="row justify-content-md-center mt-4">
         <div className="col">

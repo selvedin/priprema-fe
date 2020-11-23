@@ -1,3 +1,4 @@
+import Loading from 'components/common/Loading'
 import { registerUser } from 'data/actions/auth'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
@@ -11,6 +12,7 @@ interface RegisterProps {
 }
 
 const Register: React.FC<RegisterProps> = ({ isAuthenticated, registerUser }) => {
+  const [saving, setSaving] = useState(false)
 
   let defaultUser: User = {
     firstname: '',
@@ -33,12 +35,14 @@ const Register: React.FC<RegisterProps> = ({ isAuthenticated, registerUser }) =>
     setUser({ ...user, [e.currentTarget.name]: e.currentTarget.value })
   }
 
-  const submitForm = () => {
+  const submitForm = async () => {
     if (email === '' || username === '' || password === '') {
       return swal('Email, username and password are required.', 'Validation failed', 'error')
     }
     else {
-      registerUser(firstname, lastname, email, phone, username, password)
+      setSaving(true)
+      await registerUser(firstname, lastname, email, phone, username, password)
+      setSaving(false)
     }
   }
   return (
@@ -90,7 +94,11 @@ const Register: React.FC<RegisterProps> = ({ isAuthenticated, registerUser }) =>
 
       <div className="row justify-content-md-center mt-4">
         <div className="col col-lg-6">
-          <button className='btn btn-primary float-right' onClick={() => submitForm()}>Registruj</button>
+          {
+            saving ?
+              <button className='btn btn-primary float-right' onClick={() => submitForm()}>Registruj</button>
+              : <Loading />
+          }
         </div>
       </div>
     </div>

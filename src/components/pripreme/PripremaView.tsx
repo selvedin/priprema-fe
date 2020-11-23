@@ -3,10 +3,7 @@ import axios from 'axios'
 import swal from 'sweetalert'
 import { defaultPriprema } from './defaultPriprema'
 import { IPriprema } from 'types/Priprema'
-import { Link } from 'react-router-dom'
-import { FaPlusCircle, FaList, FaFilePdf, FaEdit } from 'react-icons/fa'
-import PdfDocument from 'components/common/PdfDocument'
-import { PDFDownloadLink } from '@react-pdf/renderer'
+import FormHeader from 'components/common/FormHeader'
 
 
 const PripremaView = (props: any) => {
@@ -28,24 +25,7 @@ const PripremaView = (props: any) => {
 
   return (
     <div className='container'>
-      <div className="row justify-content-md-center p-3 border-bottom">
-        <div className="col">
-          <h2 className='float-left'>Priprema</h2>
-          <PDFDownloadLink className='text-danger float-right' document={<PdfDocument priprema={priprema} />} fileName={`priprema-${priprema.predmet}-${priprema.razred}-${priprema.nastavnaJedinica}`}>
-            {({ blob, url, loading, error }) => (loading ? '' : <FaFilePdf size={22} />)}
-          </PDFDownloadLink>
-          <Link className='text-primary btn-sm float-right mx-1' to='/priprema' title='Nova priprema'>
-            <FaPlusCircle size={22} />
-          </Link>
-          <Link className='text-secondary btn-sm float-right mx-1' to='/pripreme' title='Sve pripreme'>
-            <FaList size={22} />
-          </Link>
-          <Link className='text-success btn-sm float-right mx-1' to={'/priprema-edit/' + id} title='Uredi pripremu'>
-            <FaEdit size={22} />
-          </Link>
-          <div className='clearfix' />
-        </div>
-      </div>
+      <FormHeader priprema={priprema} id={id} isView={true} />
       <div className="row justify-content-md-center p-3">
         <table className='table table-borderless table-priprema'>
           <tbody className='text-left'>
