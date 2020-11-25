@@ -4,6 +4,8 @@ import { FaPlusCircle, FaList, FaFilePdf, FaEdit, FaEye } from 'react-icons/fa'
 import PdfDocument from 'components/common/PdfDocument'
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import { IPriprema } from 'types/Priprema'
+import axios from 'axios'
+import FileDownload from 'js-file-download'
 
 interface FormProps {
   priprema: IPriprema,
@@ -14,10 +16,21 @@ interface FormProps {
 const FormHeader = (props: FormProps) => {
   const { id, priprema, isView } = props
 
+  const getPdf = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_PATH}/exports/pdf`,
+        { responseType: 'blob', params: { name: 'Priprema', id: 'somestring' } })
+      FileDownload(response.data, 'export.pdf')
+
+    } catch (error) {
+      console.log(error.response.data, 'Greska', 'error')
+    }
+  }
   return (
     <div className="row justify-content-md-center p-3 border-bottom">
       <div className="col">
         <h2 className='float-left'>Priprema</h2>
+        <button className='btn btn-default' onClick={getPdf}>Export</button>
         <PDFDownloadLink className='text-danger float-right' document={<PdfDocument priprema={priprema} />} fileName={`priprema-${priprema.predmet}-${priprema.razred}-${priprema.nastavnaJedinica}`}>
           {({ blob, url, loading, error }) => (loading ? '' : <FaFilePdf size={22} />)}
         </PDFDownloadLink>
