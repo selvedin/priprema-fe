@@ -71,7 +71,8 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
     glavniSadrzaj,
     zavrsniTrajanje,
     zavrsniSadrzaj,
-    domaciRad, korekcija, _id } = priprema
+    korekcija,
+    domaciRad, _id } = priprema
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPriprema({ ...priprema, [e.currentTarget.name]: e.currentTarget.value })
@@ -123,8 +124,8 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
         glavniSadrzaj,
         zavrsniTrajanje,
         zavrsniSadrzaj,
-        domaciRad,
         korekcija,
+        domaciRad,
         _id)
 
       notify('Podaci su usljesno snimljeni')
