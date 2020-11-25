@@ -29,5 +29,6 @@ export let defaultPriprema: IPriprema = {
   zavrsniTrajanje: '',
   zavrsniSadrzaj: '',
   domaciRad: '',
+  korekcija: '',
   _id: ''
 }

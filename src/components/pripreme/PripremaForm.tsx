@@ -71,7 +71,7 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
     glavniSadrzaj,
     zavrsniTrajanje,
     zavrsniSadrzaj,
-    domaciRad, _id } = priprema
+    domaciRad, korekcija, _id } = priprema
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPriprema({ ...priprema, [e.currentTarget.name]: e.currentTarget.value })
@@ -86,8 +86,8 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
 
   }
 
-  const handleEditorChange = (tekst: string) => {
-    setPriprema({ ...priprema, uvodniSadrzaj: tekst })
+  const handleEditorChange = (objekat: string, tekst: string) => {
+    setPriprema({ ...priprema, [objekat]: tekst })
   }
 
   const submitForm = async () => {
@@ -124,6 +124,7 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
         zavrsniTrajanje,
         zavrsniSadrzaj,
         domaciRad,
+        korekcija,
         _id)
 
       notify('Podaci su usljesno snimljeni')
@@ -209,6 +210,27 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
 
       <div className="row justify-content-md-center mt-2">
         <div className="col-md-12">
+          <label htmlFor="obliciNastavnogRada" className='form-label fw-bold'>Oblici rada:</label><br />
+          <input type="text" name="obliciNastavnogRada" value={obliciNastavnogRada} onChange={e => onChange(e)} className='form-control' />
+        </div>
+      </div>
+
+      <div className="row justify-content-md-center mt-2">
+        <div className="col-md-12">
+          <label htmlFor="nastavneMetode" className='form-label fw-bold'>Metode nastavnog rada:</label><br />
+          <input type="text" name="nastavneMetode" value={nastavneMetode} onChange={e => onChange(e)} className='form-control' />
+        </div>
+      </div>
+
+      <div className="row justify-content-md-center mt-2">
+        <div className="col-md-12">
+          <label htmlFor="nastavniPomagala" className='form-label fw-bold'>Nastavna sredstva:</label><br />
+          <input type="text" name="nastavniPomagala" value={nastavniPomagala} onChange={e => onChange(e)} className='form-control' />
+        </div>
+      </div>
+
+      <div className="row justify-content-md-center mt-2">
+        <div className="col-md-12">
           <label htmlFor="nastavnaJedinica" className='form-label fw-bold'>Uvodni dio:</label>
           <Editor
             apiKey='wmdmbf9x0awj6m30d51rucxght27s1j3tn9dkxweue8dqxh4'
@@ -225,10 +247,78 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
               toolbar:
                 'undo redo | formatselect | bold italic backcolor |  alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
             }}
-            onEditorChange={tekst => handleEditorChange(tekst)}
+            onEditorChange={tekst => handleEditorChange('uvodniSadrzaj', tekst)}
           />
         </div>
+      </div>
 
+      <div className="row justify-content-md-center mt-2">
+        <div className="col-md-12">
+          <label htmlFor="nastavnaJedinica" className='form-label fw-bold'>Glavni dio:</label>
+          <Editor
+            apiKey='wmdmbf9x0awj6m30d51rucxght27s1j3tn9dkxweue8dqxh4'
+            initialValue={glavniSadrzaj}
+            value={glavniSadrzaj}
+            init={{
+              height: 350,
+              menubar: false,
+              plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+              ],
+              toolbar:
+                'undo redo | formatselect | bold italic backcolor |  alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+            }}
+            onEditorChange={tekst => handleEditorChange('glavniSadrzaj', tekst)}
+          />
+        </div>
+      </div>
+
+      <div className="row justify-content-md-center mt-2">
+        <div className="col-md-12">
+          <label htmlFor="nastavnaJedinica" className='form-label fw-bold'>Završni dio:</label>
+          <Editor
+            apiKey='wmdmbf9x0awj6m30d51rucxght27s1j3tn9dkxweue8dqxh4'
+            initialValue={zavrsniSadrzaj}
+            value={zavrsniSadrzaj}
+            init={{
+              height: 350,
+              menubar: false,
+              plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+              ],
+              toolbar:
+                'undo redo | formatselect | bold italic backcolor |  alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+            }}
+            onEditorChange={tekst => handleEditorChange('zavrsniSadrzaj', tekst)}
+          />
+        </div>
+      </div>
+
+      <div className="row justify-content-md-center mt-2">
+        <div className="col-md-12">
+          <label htmlFor="nastavnaJedinica" className='form-label fw-bold'>Korekcija - Dopuna:</label>
+          <Editor
+            apiKey='wmdmbf9x0awj6m30d51rucxght27s1j3tn9dkxweue8dqxh4'
+            initialValue={korekcija}
+            value={korekcija}
+            init={{
+              height: 350,
+              menubar: false,
+              plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+              ],
+              toolbar:
+                'undo redo | formatselect | bold italic backcolor |  alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+            }}
+            onEditorChange={tekst => handleEditorChange('korekcija', tekst)}
+          />
+        </div>
       </div>
 
       <div className="row justify-content-md-center mt-4">

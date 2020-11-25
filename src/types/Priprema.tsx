@@ -27,5 +27,6 @@ export interface IPriprema {
   zavrsniTrajanje: string,
   zavrsniSadrzaj: string,
   domaciRad: string,
+  korekcija: string,
   _id?: string
 }
