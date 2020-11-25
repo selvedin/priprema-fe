@@ -56,12 +56,12 @@ const PripremaView = (props: any) => {
             <tr><td colSpan={10}></td></tr>
             <tr><td className='fw-bold' colSpan={10}>ZAVRŠNI DIO ({priprema.zavrsniTrajanje} minuta)</td></tr>
             <tr><td colSpan={10}></td></tr>
-            <tr><td className='fw-bold' colSpan={10} dangerouslySetInnerHTML={{ __html: priprema.zavrsniTrajanje }}></td></tr>
+            <tr><td className='fw-bold' colSpan={10} dangerouslySetInnerHTML={{ __html: priprema.zavrsniSadrzaj }}></td></tr>
             <tr><td colSpan={10}></td></tr>
             <tr><td className='fw-bold' colSpan={2}>ŠKOLSKA GODINA: </td><td colSpan={8}>{priprema.skolskaGodina}</td></tr>
             <tr><td colSpan={10}></td></tr>
             <tr><td className='fw-bold' colSpan={2}>KOREKCIJA - DOPUNA </td><td colSpan={8}></td></tr>
-            <tr><td className='fw-bold' colSpan={10} dangerouslySetInnerHTML={{ __html: '<strong></strong>' }} ></td></tr>
+            <tr><td className='fw-bold' colSpan={10} dangerouslySetInnerHTML={{ __html: priprema.korekcija }} ></td></tr>
             <tr><td colSpan={10}></td></tr>
             <tr>
               <td className='fw-bold' colSpan={2}>Nastavnik: </td><td colSpan={3}>{priprema.nastavnik}</td>
