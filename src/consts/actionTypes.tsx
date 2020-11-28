@@ -1,0 +1,7 @@
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const REGISTER_FAILED = 'REGISTER_FAILED'
+export const LOGIN_FAILED = 'LOGIN_FAILED'
+export const LOADING_USER = 'LOADING_USER'
+export const AUTH_ERROR = 'AUTH_ERROR'
+export const LOGED_OUT = 'LOGED_OUT'
