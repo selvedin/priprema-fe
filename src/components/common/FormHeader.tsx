@@ -30,7 +30,7 @@ const FormHeader = (props: FormProps) => {
     }
   }
   return (
-    <div className="row justify-content-md-center p-3 border-bottom">
+    <div className="row justify-content-md-center border-bottom">
       <div className="col">
         <h2 className='float-left'>Priprema</h2>
         {!isLoading ?
