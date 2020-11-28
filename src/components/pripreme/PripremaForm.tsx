@@ -232,7 +232,9 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
 
       <div className="row justify-content-md-center mt-2">
         <div className="col-md-12">
-          <label htmlFor="nastavnaJedinica" className='form-label fw-bold'>Uvodni dio:</label>
+          <label htmlFor="nastavnaJedinica" className='form-label fw-bold'>Uvodni dio:
+          <input type="number" name="uvodniTrajanje" value={uvodniTrajanje} min={0} max={45} onChange={e => onChange(e)} /> (trajanje - min)
+          </label>
           <Editor
             apiKey='wmdmbf9x0awj6m30d51rucxght27s1j3tn9dkxweue8dqxh4'
             initialValue={uvodniSadrzaj}
@@ -255,7 +257,9 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
 
       <div className="row justify-content-md-center mt-2">
         <div className="col-md-12">
-          <label htmlFor="nastavnaJedinica" className='form-label fw-bold'>Glavni dio:</label>
+          <label htmlFor="nastavnaJedinica" className='form-label fw-bold'>Glavni dio:
+          <input type="number" name="glavniTrajanje" value={glavniTrajanje} min={0} max={45} onChange={e => onChange(e)} /> (trajanje - min)
+          </label>
           <Editor
             apiKey='wmdmbf9x0awj6m30d51rucxght27s1j3tn9dkxweue8dqxh4'
             initialValue={glavniSadrzaj}
@@ -278,7 +282,9 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
 
       <div className="row justify-content-md-center mt-2">
         <div className="col-md-12">
-          <label htmlFor="nastavnaJedinica" className='form-label fw-bold'>Završni dio:</label>
+          <label htmlFor="nastavnaJedinica" className='form-label fw-bold'>Završni dio:
+          <input type="number" name="zavrsniTrajanje" value={zavrsniTrajanje} min={0} max={45} onChange={e => onChange(e)} /> (trajanje - min)
+          </label>
           <Editor
             apiKey='wmdmbf9x0awj6m30d51rucxght27s1j3tn9dkxweue8dqxh4'
             initialValue={zavrsniSadrzaj}

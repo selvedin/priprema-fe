@@ -36,23 +36,31 @@ const FormHeader = (props: FormProps) => {
         {!isLoading ?
           (
             <Fragment>
-              <a href='#' className='text-danger btn-sm float-right' onClick={getPdf} title='Exportuj u PDF'><FaFilePdf size={22} /></a>
-              <Link className='text-primary btn-sm float-right mx-1' to='/priprema' title='Nova priprema'>
-                <FaPlusCircle size={22} />
-              </Link>
+              {
+                id ?
+                  <Fragment>
+                    <a href='#' className='text-danger btn-sm float-right' onClick={getPdf} title='Exportuj u PDF'><FaFilePdf size={22} /></a>
+                    <Link className='text-primary btn-sm float-right mx-1' to='/priprema' title='Nova priprema'>
+                      <FaPlusCircle size={22} />
+                    </Link>
+                    {
+                      isView ?
+                        <Link className='text-success btn-sm float-right mx-1' to={'/priprema-edit/' + id} title='Uredi pripremu'>
+                          <FaEdit size={22} />
+                        </Link>
+                        :
+                        <Link className='text-info btn-sm float-right mx-1' to={'/priprema/' + id} title='Detalji pripreme'>
+                          <FaEye size={22} />
+                        </Link>
+                    }
+                  </Fragment>
+                  : null
+              }
+
+
               <Link className='text-secondary btn-sm float-right mx-1' to='/pripreme' title='Sve pripreme'>
                 <FaList size={22} />
               </Link>
-              {
-                isView ?
-                  <Link className='text-success btn-sm float-right mx-1' to={'/priprema-edit/' + id} title='Uredi pripremu'>
-                    <FaEdit size={22} />
-                  </Link>
-                  :
-                  <Link className='text-info btn-sm float-right mx-1' to={'/priprema/' + id} title='Detalji pripreme'>
-                    <FaEye size={22} />
-                  </Link>
-              }
             </Fragment>
           )
           : <Loading className='float-right' />
