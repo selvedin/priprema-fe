@@ -133,7 +133,7 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
     }
   }
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 px-4">
       <FormHeader priprema={priprema} id={id} isView={false} />
 
       <input type="hidden" name="_id" value={_id} onChange={e => onChange(e)} className='form-control' />
@@ -328,7 +328,7 @@ const PripremaForm: React.FC<PripremaProps> = (props) => {
         </div>
       </div>
 
-      <div className="row justify-content-md-center mt-4">
+      <div className="row justify-content-md-center mt-4 pb-4">
         <div className="col">
           {savingForm ? <Loading /> :
             <button className='btn btn-primary float-right' onClick={() => submitForm()}>Snimi</button>
