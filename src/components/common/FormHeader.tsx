@@ -21,8 +21,8 @@ const FormHeader = (props: FormProps) => {
     try {
       setIsLoading(true)
       const response = await axios.get(`${process.env.REACT_APP_BASE_PATH}/exports/pdf`,
-        { responseType: 'blob', params: { name: 'Priprema', id: 'somestring' } })
-      FileDownload(response.data, 'export.pdf')
+        { responseType: 'blob', params: { name: 'Priprema', id } })
+      FileDownload(response.data, `Priprema-${id}.pdf`)
       setIsLoading(false)
 
     } catch (error) {
