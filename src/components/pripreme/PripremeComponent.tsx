@@ -7,13 +7,13 @@ import { FaPlusCircle } from 'react-icons/fa'
 function PripremeComponent() {
 
   return (
-    <div className='container'>
+    <div className='container pt-3'>
 
-      <div className="row justify-content-md-center p-3 border-bottom">
+      <div className="row justify-content-md-center border-bottom">
         <div className="col">
           <h2 className='float-left'>Pripreme</h2>
-          <Link className='btn btn-primary btn-sm float-right' to='/priprema' title='Nova priprema'>
-            <FaPlusCircle size={16} />
+          <Link className='rounded-circle pb-2 float-right' to='/priprema' title='Nova priprema'>
+            <FaPlusCircle size={24} />
           </Link>
           <div className='clearfix'></div>
         </div>

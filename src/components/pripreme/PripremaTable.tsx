@@ -60,15 +60,15 @@ const PripremaTable = () => {
                 <td>{pr.predmet}</td>
                 <td>{pr.razred}</td>
                 <td className='text-right'>
-                  <Link className="btn btn-secondary btn-sm mx-1" to={'/priprema/' + pr._id}>
+                  <Link className="text-secondary mx-1" title="Pregled pripreme" to={'/priprema/' + pr._id}>
                     <FaEye />
                   </Link>
-                  <Link className="btn btn-primary btn-sm mx-1" to={'/priprema-edit/' + pr._id}>
+                  <Link className="text-primary  mx-1" title="Izmijeni pipremu" to={'/priprema-edit/' + pr._id}>
                     <FaEdit />
                   </Link>
-                  <button className="btn btn-danger btn-sm mx-1" onClick={() => deletePriprema(pr._id)}>
+                  <a href="#" className="text-danger mx-1" title="Izbriši pripremu" onClick={() => deletePriprema(pr._id)}>
                     <FaTrash />
-                  </button>
+                  </a>
                 </td>
               </tr>)
           })}
